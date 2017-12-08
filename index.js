@@ -52,7 +52,7 @@ app.get('/action',async function (req, res) {
 });
 });
 app.get('/AddNewRancher', function (req,res) {
-    app.render('CreateNewRancher');
+    res.render('createnewrancher');
 });
 
 app.get('/login',function (req, res) {
