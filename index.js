@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const handlebars = require('express-handlebars').create({defaultLayout:'main'});
 app.engine('handlebars',handlebars.engine);
-app.set('views engine','handlebars');
+app.set('view engine','handlebars');
 
 app.use(require('body-parser').urlencoded({ extended: true }));
 
