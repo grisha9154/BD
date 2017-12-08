@@ -1,0 +1,32 @@
+<form method="get" action="AddRancherToObject">
+    <input type="hidden" name="action" value="AddLocation">
+    <input type="hidden" name="location" value="{{location}}">
+    <input type="submit" value="Add">
+</form>
+<table>
+    <tr>
+        <td>Name</td>
+        <td>Efficiency</td>
+        <td>Agility</td>
+        <td>Strength</td>
+        <td>Intelligence</td>
+        <td>Action</td>
+    </tr>
+
+
+    {{#each Rancher}}
+        <tr>
+            <form method="get" action="/DeleteRancherFromObject" >
+                <td>{{name}}</td>
+                <td>{{efficiency}}</td>
+                <td>{{agility}}</td>
+                <td>{{strength}}</td>
+                <td>{{intellect}}</td>
+                <td><input type="submit" value="Delete"></td>
+                <input type="hidden" name="RancherId" value="{{id}}">
+                <input type="hidden" name="ObjectId" value="{{location}}">
+            </form>
+        </tr>
+    {{/each}}
+</table>
+

@@ -1,0 +1,19 @@
+<table>
+    <tr>
+        <td>Name</td>
+        <td>Buf</td>
+        <td>Rancher</td>
+        <td>Action</td>
+    </tr>
+    {{#each Object}}
+        <form method="get" action="/ObjectById" >
+            <tr>
+                <td>{{name}}</td>>
+                <td>{{description}}</td>
+                <td>{{rancher}}</td>
+                <td><input type="submit" value="Open"></td>
+            </tr>
+            <input type="hidden" name="ObjectId" value="{{id}}">
+        </form>
+    {{/each}}
+</table>
