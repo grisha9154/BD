@@ -63,6 +63,21 @@ app.get('/AddRancher',async function (req, res) {
     });
    await allRancher(req,res);
 });
+app.get('/OpenRancher',async function (req, res) {
+    let inv = {InventaryGun:[]};
+    let sql_req = new sql.Request();
+    sql_req.input('rancherId',sql.Int,req.query.RancherId);
+    let result = await sql_req.execute('get_inv_main_gun');
+    inv.InventaryGun = result.recordset;
+    console.dir(result);
+    await res.render('openRancher', inv);
+});
+app.get('/OpenAction',async function (req, res) {
+    let sql_req = new sql.Request();
+    sql_req.input('actionId',sql.Int,req.query.ActionId);
+    let result = await sql_req.execute('get_all_rancher_by_action_id');
+    inv.InventaryGun = result.recordset;
+});
 
 app.get('/login',function (req, res) {
     res.render('login');

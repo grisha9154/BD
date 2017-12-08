@@ -1,0 +1,14 @@
+<ul>
+{{#each InventaryGun}}
+    <tr>
+        <form method="get" action="/DeleteRancherFromObject" >
+            <td>{{name}}</td>
+            <td>{{dps}}</td>
+            <td>{{description}}</td>
+            <td><input type="submit" value="Delete"></td>
+            <input type="hidden" name="RancherId" value="{{id}}">
+            <input type="hidden" name="ObjectId" value="{{location}}">
+        </form>
+    </tr>
+{{/each}}
+</ul>

@@ -5,10 +5,13 @@
         <td>Action</td>
     </tr>
     {{#each Action}}
+        <form method="get" action="OpenAction">
         <tr>
             <td>{{name}}</td>>
             <td>{{price}}</td>
-            <td id="Action{{id}}"></td>
+            <input type="hidden" name="ActionId" value="{{id}}">
+            <td><input type="submit" value="Open"></td>
         </tr>
+        </form>
     {{/each}}
 </table>
