@@ -54,6 +54,15 @@ app.get('/action',async function (req, res) {
 app.get('/AddNewRancher', function (req,res) {
     res.render('createnewrancher');
 });
+app.get('/AddRancher',async function (req, res) {
+    let sql_req = new sql.Request();
+    sql_req.input('name',sql.NVarChar(100),req.query.RancherName);
+    sql_req.input('userId',sql.Int,1);
+    await sql_req.execute('create_rancher',(err,result)=>{
+        console.dir(result);
+    });
+   await allRancher(req,res);
+});
 
 app.get('/login',function (req, res) {
     res.render('login');
