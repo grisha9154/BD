@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const handlebars = require('express-handlebars').create({defaultLayout:'main'});
-/*app.engine('handlebars',handlebars.engine);
+app.engine('handlebars',handlebars.engine);
 app.set('views engine','handlebars');
 
 app.use(require('body-parser').urlencoded({ extended: true }));
@@ -51,7 +51,7 @@ app.get('/action',async function (req, res) {
     res.render('action',{Action:result.recordset});
 });
 });
-/*app.get('/AddNewRancher', function (req,res) {
+app.get('/AddNewRancher', function (req,res) {
     app.render('CreateNewRancher');
 });
 
@@ -97,7 +97,7 @@ app.use(function(req,res){
 
 app.listen(app.get('port'),function () {
     console.log('Express is work');
-});*/
+});
 
 async function allRancher (req, res) {
     let sql_req = new sql.Request();
