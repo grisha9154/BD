@@ -13,14 +13,7 @@ app.use(express.static('./public'));
 app.set('port',process.env.PORT||3000);
 
 
-app.get('/',async function  (req, res) {
-    let sql_req = new sql.Request();
-    sql_req.input('user_id',sql.Int,1);
-    await sql_req.execute('get_all_object',(err,result)=>{
-        console.dir(result);
-    res.render('home',{Object:result.recordset});
-});
-});
+app.get('/',allObject);
 app.get('/ObjectById',ObjectById);
 app.get('/allranchers',allRancher);
 app.get('/DeleteRancherFromObject',async function (req, res) {
@@ -44,13 +37,7 @@ app.get('/AddLocationRancher',async function (req,res) {
 app.get('/RancherById',async function (req, res) {
 
 });
-app.get('/action',async function (req, res) {
-    let sql_req = new sql.Request();
-    await sql_req.execute('get_all_action',(err,result)=>{
-        console.dir(result);
-    res.render('action',{Action:result.recordset});
-});
-});
+app.get('/action',allAction);
 app.get('/AddNewRancher', function (req,res) {
     res.render('createnewrancher');
 });
@@ -74,9 +61,44 @@ app.get('/OpenRancher',async function (req, res) {
 });
 app.get('/OpenAction',async function (req, res) {
     let sql_req = new sql.Request();
-    sql_req.input('actionId',sql.Int,req.query.ActionId);
-    let result = await sql_req.execute('get_all_rancher_by_action_id');
-    inv.InventaryGun = result.recordset;
+    await sql_req.execute('get_all_rancher_by_action_id',async (err,result)=>{
+        console.dir(result);
+        await result.recordset.forEach((item, i, arr)=>{
+            item.location = req.query.location;
+            if(req.query.action===undefined) {
+                item.action = 'Open';
+            }else{
+                item.action =req.query.action ;
+            }
+        });
+        await res.render('ActionById',{Rancher:result.recordset});
+    });
+});
+app.get('/AddActivityRancher',async function (req, res) {
+    let sql_req = new sql.Request();
+    sql_req.input('rancherId',sql.Int,req.query.RancherId);
+    sql_req.input('activityId',sql.Int,req.query.ActionId);
+    await sql_req.execute('change_rancher_activity',(err,result)=>{
+        console.dir(result);
+    });
+    await allAction(req,res);
+});
+app.get('/AddNewObjectInHome',async function (req, res) {
+    let sql_req = new sql.Request();
+    sql_req.input('userId',sql.Int,1);
+    await sql_req.execute('get_all_object',(err,result)=>{
+        console.dir(result);
+        res.render('AddNewObjectInHome',{Object:result.recordset});
+    });
+});
+app.get('/AddObject',async function (req, res) {
+    let sql_req = new sql.Request();
+    sql_req.input('homeId',sql.Int,req.query.homeId);
+    sql_req.input('ObjectId',sql.Int,req.query.ObjectId);
+    await sql_req.execute('insert_new_object_in_homestead',(err,result)=>{
+        console.dir(result);
+        allObject(req, res);
+    });
 });
 
 app.get('/login',function (req, res) {
@@ -101,16 +123,16 @@ app.get('/registration',function (req, res) {
     res.render('registration');
 });
 
-app.post('/registration',function (req, res) {
+app.post('/registration',async function (req, res) {
     let body = req.body;
     let sql_req = new sql.Request();
     sql_req.input('user_login',sql.NVarChar(50),body.Username);
     sql_req.input('user_password',sql.NVarChar(100),body.Password);
     sql_req.input('email',sql.NVarChar(50),body.Email);
-    sql_req.execute('create_user',(err,res)=>{
-        console.dir(res);
-});
-    res.render('home',{name:'Grisha'});
+    await sql_req.execute('create_user',(err,result)=>{
+        console.dir(result);
+        allObject(req,res)
+    });
 });
 
 app.use(function(req,res){
@@ -147,4 +169,19 @@ async function ObjectById (req,res) {
         console.dir(result);
     res.render('Object',{Rancher:result.recordset,location:req.query.ObjectId});
 })
+}
+async function allAction (req, res) {
+    let sql_req = new sql.Request();
+    await sql_req.execute('get_all_action',(err,result)=>{
+        console.dir(result);
+        res.render('action',{Action:result.recordset});
+    });
+}
+async function allObject (req, res) {
+    let sql_req = new sql.Request();
+    sql_req.input('user_id',sql.Int,1);
+    await sql_req.execute('get_all_object_by_user_id',(err,result)=>{
+        console.dir(result);
+        res.render('home',{Object:result.recordset});
+    });
 }

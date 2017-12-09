@@ -1,0 +1,23 @@
+<table>
+    <tr>
+        <td>Name</td>
+        <td>Agility</td>
+        <td>Strength</td>
+        <td>Intelligence</td>
+        <td>Action</td>
+    </tr>
+    {{#each Rancher}}
+        <form method="get" action="{{action}}Rancher">
+            <tr>
+                <td>{{name}}</td>>
+                <td>{{agility}}</td>
+                <td>{{strength}}</td>
+                <td>{{intellect}}</td>
+                <input type="hidden" name="ActionId" value="{{ActivitiId}}">
+                <input type="hidden" name="RancherId"  value="{{id}}">
+                <input type="hidden" name="ObjectId"  value="{{location}}">
+                <td><input type="submit" value="{{action}}"></td>
+            </tr>
+        </form>
+    {{/each}}
+</table>
