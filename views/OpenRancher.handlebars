@@ -1,14 +1,93 @@
-<ul>
-{{#each InventaryGun}}
-    <tr>
-        <form method="get" action="/DeleteRancherFromObject" >
-            <td>{{name}}</td>
-            <td>{{dps}}</td>
-            <td>{{description}}</td>
-            <td><input type="submit" value="Delete"></td>
-            <input type="hidden" name="RancherId" value="{{id}}">
-            <input type="hidden" name="ObjectId" value="{{location}}">
-        </form>
-    </tr>
-{{/each}}
-</ul>
+   <table>
+       <tr>
+           <form method="get" action="/ChangeRancherMainGun">
+               <td>MainGun</td>
+               <td>{{MainGun/name}}</td>
+               <td>{{MainGun/dps}}</td>
+               <td>{{MainGun/description}}</td>
+               <td><input type="submit" value="Change"></td>
+               <input type="hidden" name="RancherId" value="{{id}}">
+               <input type="hidden" name="ObjectId" value="{{location}}">
+               <input type="hidden" name="InvType" value="change_main_gun_by_rancher_id">
+           </form>
+       </tr>
+       <tr>
+           <form method="get" action="/ChangeRancherAltGun" >
+               <td>AltGun</td>
+               <td>{{AltGun/name}}</td>
+               <td>{{AltGun/dps}}</td>
+               <td></td>
+               <td><input type="submit" value="Change"></td>
+               <input type="hidden" name="RancherId" value="{{id}}">
+               <input type="hidden" name="ObjectId" value="{{location}}">
+           </form>
+       </tr>
+       <tr>
+           <form method="get" action="/ChangeRancherSpecGun" >
+               <td>SpecGun</td>
+               <td>{{SpecGun/name}}</td>
+               <td>{{SpecGun/dps}}</td>
+               <td>{{SpecGun/description}}</td>
+               <td><input type="submit" value="Change"></td>
+               <input type="hidden" name="RancherId" value="{{id}}">
+               <input type="hidden" name="ObjectId" value="{{location}}">
+           </form>
+       </tr>
+       <tr>
+           <form method="get" action="/ChangeRancherHead" >
+               <td>Head</td>
+               <td>{{Head/name}}</td>
+               <td>{{Head/armor}}</td>
+               <td>{{Head/description}}</td>
+               <td><input type="submit" value="Change"></td>
+               <input type="hidden" name="RancherId" value="{{id}}">
+               <input type="hidden" name="ObjectId" value="{{location}}">
+           </form>
+       </tr>
+       <tr>
+           <form method="get" action="/ChangeRancherHand" >
+               <td>Hand</td>
+               <td>{{Hand/name}}</td>
+               <td>{{Hand/armor}}</td>
+               <td>{{Hand/description}}</td>
+               <td><input type="submit" value="Change"></td>
+               <input type="hidden" name="RancherId" value="{{id}}">
+               <input type="hidden" name="ObjectId" value="{{location}}">
+           </form>
+       </tr>
+       <tr>
+           <form method="get" action="/ChangeRancherBody" >
+               <td>Body</td>
+               <td>{{Body/name}}</td>
+               <td>{{Body/armor}}</td>
+               <td>{{Body/description}}</td>
+               <td><input type="submit" value="Change"></td>
+               <input type="hidden" name="RancherId" value="{{id}}">
+               <input type="hidden" name="ObjectId" value="{{location}}">
+           </form>
+       </tr>
+
+       <tr>
+           <form method="get" action="/ChangeRancherLeg" >
+               <td>Leg</td>
+               <td>{{Leg/name}}</td>
+               <td>{{Leg/armor}}</td>
+               <td>{{Leg/description}}</td>
+               <td><input type="submit" value="Change"></td>
+               <input type="hidden" name="RancherId" value="{{id}}">
+               <input type="hidden" name="ObjectId" value="{{location}}">
+           </form>
+       </tr>
+
+       <tr>
+           <form method="get" action="/ChangeRancherFoot" >
+               <td>Foot</td>
+               <td>{{Foot/name}}</td>
+               <td>{{Foot/armor}}</td>
+               <td>{{Foot/description}}</td>
+               <td><input type="submit" value="Change"></td>
+               <input type="hidden" name="RancherId" value="{{id}}">
+               <input type="hidden" name="ObjectId" value="{{location}}">
+           </form>
+       </tr>
+   </table>

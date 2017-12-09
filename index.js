@@ -51,12 +51,15 @@ app.get('/AddRancher',async function (req, res) {
    await allRancher(req,res);
 });
 app.get('/OpenRancher',async function (req, res) {
-    let inv = {InventaryGun:[]};
-    let sql_req = new sql.Request();
-    sql_req.input('rancherId',sql.Int,req.query.RancherId);
-    let result = await sql_req.execute('get_inv_main_gun');
-    inv.InventaryGun = result.recordset;
-    console.dir(result);
+    let inv = {MainGun:{},AltGun:{},SpecGun:{},Head:{},Hand:{},Body:{},Leg:{},Foot:{}};
+    inv.MainGun =await  GetInvByRanchId(req.query.RancherId,'get_main_gun');
+    inv.AltGun = await GetInvByRanchId(req.query.RancherId,'get_alt_gun');
+    inv.SpecGun =await  GetInvByRanchId(req.query.RancherId,'get_spec_gun');
+    inv.Head =await  GetInvByRanchId(req.query.RancherId,'get_head_armory');
+    inv.Hand =await  GetInvByRanchId(req.query.RancherId,'get_hand_armory');
+    inv.Body =await  GetInvByRanchId(req.query.RancherId,'get_body_armory');
+    inv.Leg =await  GetInvByRanchId(req.query.RancherId,'get_leg_armory');
+    inv.Foot = await GetInvByRanchId(req.query.RancherId,'get_foot_armory');
     await res.render('openRancher', inv);
 });
 app.get('/OpenAction',async function (req, res) {
@@ -99,6 +102,11 @@ app.get('/AddObject',async function (req, res) {
         console.dir(result);
         allObject(req, res);
     });
+});
+
+app.get('/ChangeRancherMainGun',async function (req, res) {
+    let sql_req = new sql.Request();
+    let result = await sql_req.execute('');
 });
 
 app.get('/login',function (req, res) {
@@ -184,4 +192,10 @@ async function allObject (req, res) {
         console.dir(result);
         res.render('home',{Object:result.recordset});
     });
+}
+async function GetInvByRanchId(rancherId,str) {
+    let sql_req = new sql.Request();
+    sql_req.input('rancherId',sql.Int,rancherId);
+    let result = await sql_req.execute(str);
+    return result.recordset[0];
 }
